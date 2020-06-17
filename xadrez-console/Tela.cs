@@ -4,6 +4,7 @@ namespace xadrez_console
 {
     class Tela
     {
+        //Método para imprimir meu tabuleiro no console(matriz)
         public static void ImprimirTabuleiro(Tabuleiro tab)
         {
             for (int i = 0; i < tab.Linhas; i++) 

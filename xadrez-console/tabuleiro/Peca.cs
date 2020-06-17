@@ -14,9 +14,10 @@ namespace tabuleiro
 
         }
 
-        public Peca(Posicao posicao, Tabuleiro tab, Cor cor)
+        //Posicao = null pois quando cria uma peça ela ainda não tem posição, e quem define sua posição é a class Tabuleiro
+        public Peca(Tabuleiro tab, Cor cor)
         {
-            Posicao = posicao;
+            Posicao = null;
             Tab = tab;
             Cor = cor;
             QteMovimentos = 0;
