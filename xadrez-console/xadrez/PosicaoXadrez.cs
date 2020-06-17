@@ -20,6 +20,7 @@ namespace xadrez
             Linha = linha;
         }
 
+        //Converte a posição do xadrez na posição da matriz de peças
         public Posicao ToPosicao()
         {
             return new Posicao(8 - Linha, Coluna - 'a');
