@@ -22,5 +22,11 @@ namespace tabuleiro
             Cor = cor;
             QteMovimentos = 0;
         }
+
+        //Método para incrementar a quantidade de movimentos ao mexer uma peça.
+        public void IncrementarQteMovimentos()
+        {
+            QteMovimentos++;
+        }
     }
 }

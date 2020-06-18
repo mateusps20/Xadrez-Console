@@ -53,6 +53,19 @@ namespace tabuleiro
 
         }
 
+        //Método para retirar uma peça e retornando uma peça caso precise reutilizar ela
+        public Peca RetirarPeca(Posicao pos)
+        {
+            if(Peca(pos) == null) 
+            {
+                return null;
+            }
+            Peca aux = Peca(pos);
+            aux.Posicao = null;
+            Pecas[pos.Linha, pos.Coluna] = null;
+            return aux;
+        }
+
         //Método para validar se minha posição é válida ou não
         public bool PosicaoValida(Posicao pos)
         {
