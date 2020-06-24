@@ -76,8 +76,18 @@ namespace xadrez
                 Xeque = false;
             }
 
-            Turno++;
-            MudaJogador();
+            if (TesteXequeMate(Adversaria(JogadorAtual)))
+            {
+                Terminada = true;
+            }
+
+            else 
+            {
+                Turno++;
+                MudaJogador();
+            }
+
+            
         }
 
         //Método para validar a posição de origem e lançar erros caso ocorra algumas das verificações abaixo
@@ -191,6 +201,40 @@ namespace xadrez
             return false;
         }
 
+        /*Método para testar xequemate
+         Faço o movimento, testo se ainda está em xeque e desfaço o movimento*/
+        public bool TesteXequeMate(Cor cor)
+        {
+            if (!EstaEmXeque(cor)) 
+            {
+                return false;
+            }
+            foreach(Peca x in PecasEmJogo(cor)) 
+            {
+                bool[,] mat = x.MovimentosPossiveis();
+                for(int i = 0; i < Tab.Linhas; i++)
+                {
+                    for(int j = 0; j < Tab.Colunas; j++) 
+                    {
+                        if(mat[i, j]) 
+                        {
+                            Posicao origem = x.Posicao;
+                            Posicao destino = new Posicao(i, j);
+                            Peca pecaCapturada = ExecutaMovimento(origem, destino);
+                            bool testeXeque = EstaEmXeque(cor);
+                            DesfazMovimento(origem, destino, pecaCapturada);
+
+                            if (!testeXeque) 
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         //Método para adicionar nova peça no meu conjunto hashset
         public void ColocarNovaPeca(char coluna, int linha, Peca peca)
         {
@@ -201,18 +245,12 @@ namespace xadrez
         private void ColocarPecas()
         {
             ColocarNovaPeca('c', 1, new Torre(Tab, Cor.Branca));
-            ColocarNovaPeca('c', 2, new Torre(Tab, Cor.Branca));
-            ColocarNovaPeca('d', 2, new Torre(Tab, Cor.Branca));
-            ColocarNovaPeca('e', 2, new Torre(Tab, Cor.Branca));
-            ColocarNovaPeca('e', 1, new Torre(Tab, Cor.Branca));
             ColocarNovaPeca('d', 1, new Rei(Tab, Cor.Branca));
+            ColocarNovaPeca('h', 7, new Torre(Tab, Cor.Branca));
 
-            ColocarNovaPeca('c', 7, new Torre(Tab, Cor.Preta));
-            ColocarNovaPeca('c', 8, new Torre(Tab, Cor.Preta));
-            ColocarNovaPeca('d', 7, new Torre(Tab, Cor.Preta));
-            ColocarNovaPeca('e', 7, new Torre(Tab, Cor.Preta));
-            ColocarNovaPeca('e', 8, new Torre(Tab, Cor.Preta));
-            ColocarNovaPeca('d', 8, new Rei(Tab, Cor.Preta));
+
+            ColocarNovaPeca('a', 8, new Rei(Tab, Cor.Preta));
+            ColocarNovaPeca('b', 8, new Torre(Tab, Cor.Preta));
 
 
         }
