@@ -110,7 +110,7 @@ namespace xadrez
         //Método para validar a posição de destino e lançar erros caso ocorra algumas das verificações abaixo
         public void ValidarPosicaoDeDestino(Posicao origem, Posicao destino)
         {
-            if (!Tab.Peca(origem).PodeMoverPara(destino)) 
+            if (!Tab.Peca(origem).MovimentoPossivel(destino)) 
             {
                 throw new TabuleiroException("Posição de destino inválida!");
             }
